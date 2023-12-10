@@ -5,7 +5,7 @@ const RegisterModel = require('./models/Register')
 
 const app = express()
 app.use(cors({
-    origin: "https://phase3-mockup-server.vercel.app",
+    origin: "*",
     methods: ["POST", "GET"],
     credentials: true
   }));
@@ -21,9 +21,6 @@ app.get("/", (req, res) => {
 app.post('/register', (req, res) => {
     const {name, email, password} = req.body;
 
-    res.header('Access-Control-Allow-Origin', 'https://phase3-mockup-server.vercel.app');
-    res.header('Access-Control-Allow-Methods', 'POST, GET');
-    res.header('Access-Control-Allow-Credentials', 'true');
 
     RegisterModel.findOne({email: email})
     .then(user => {
