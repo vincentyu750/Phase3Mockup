@@ -37,6 +37,12 @@ app.post('/register', (req, res) => {
     }).catch(err => res.json(err))
 })
 
+//Debug
+app.use((req, res, next) => {
+    console.log(`Incoming request to: ${req.url}`);
+    next();
+  });
+  
 
 app.listen(3001, () => {
     console.log("Server is Running")
