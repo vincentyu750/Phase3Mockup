@@ -23,6 +23,21 @@ app.get("/", (req, res) => {
 app.post('/register', (req, res) => {
   const { name, email, password } = req.body;
 
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  // Find the user in the database based on email and password
+  RegisterModel.findOne({ email, password })
+    .then(user => {
+      if (user) {
+        res.json({ success: true, message: 'Login successful', user });
+      } else {
+        res.json({ success: false, message: 'Invalid credentials' });
+      }
+    })
+    .catch(err => res.json({ success: false, message: err.message }));
+});
+
   RegisterModel.findOne({ email: email })
     .then(user => {
       if (user) {
