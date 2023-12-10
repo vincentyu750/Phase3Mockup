@@ -14,6 +14,24 @@ axios.defaults.withCredentials = true;
     .then(result => console.log(result))
     .catch(err => console.log(err))
   }
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    axios.post('https://phase3-mockup-server.vercel.app/login', { email: loginEmail, password: loginPassword })
+      .then(response => {
+        if (response.data.success) {
+          console.log('Login successful:', response.data.user);
+          // Add code to handle successful login, e.g., redirect to a new page
+        } else {
+          console.log('Login failed:', response.data.message);
+          // Alert the user of unsuccessful login
+          alert('Login failed. Please check your credentials.');
+        }
+      })
+      .catch(err => console.log(err));
+  };
+
   return (
     <div className="d-flex justify-content-center align-items-center bg-black vh-100">
       <div className="bg-white p-3 rounded w-25">
@@ -60,7 +78,7 @@ axios.defaults.withCredentials = true;
           <button type="submit" className="btn btn-success w-100 rounded-0">
             Register
           </button>
-          <button className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none">
+          <button onClick={handleLogin} className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none">
             Login
           </button>
         </form>
