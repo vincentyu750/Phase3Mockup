@@ -13,7 +13,7 @@ app.use(cors(
 ));
 app.use(express.json())
 
-mongoose.connect('mongodb+srv://vincentyu750:<123>@clusteryyc.9shyocv.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://vincentyu750:123@clusteryyc.9shyocv.mongodb.net/test?retryWrites=true&w=majority');
 
 
 app.get("/", (req, res) => {
