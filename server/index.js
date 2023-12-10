@@ -17,7 +17,7 @@ mongoose.connect('mongodb+srv://vincentyu750:<123>@clusteryyc.9shyocv.mongodb.ne
 
 
 app.get("/", (req, res) => {
-    res.json("Hello");
+    res.json("Sucessful");
 })
 app.post('/register', (req, res) => {
     const {name, email, password} = req.body;
