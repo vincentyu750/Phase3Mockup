@@ -1,72 +1,49 @@
-import { useState } from "react";
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import axios from 'axios'
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const RegisterModel = require('./models/Register');
 
-function App() {
-  const [name, setName] = useState()
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
-axios.defaults.withCredentials = true;
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios.post('https://phase3-mockup-server.vercel.app/', {name, email, password})
-    .then(result => console.log(result))
-    .catch(err => console.log(err))
-  }
-  return (
-    <div className="d-flex justify-content-center align-items-center bg-black vh-100">
-      <div className="bg-white p-3 rounded w-25">
-        <h2>Register</h2>
-        <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Name</strong>
-            </label>
-            <input
-              type="text"
-              placeholder="Enter Name"
-              autoComplete="off"
-              name="email"
-              className="form-control rounded-0"
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Email</strong>
-            </label>
-            <input
-              type="email"
-              placeholder="Enter Email"
-              autoComplete="off"
-              name="email"
-              className="form-control rounded-0"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Password</strong>
-            </label>
-            <input
-              type="password"
-              placeholder="Enter Password"
-              name="password"
-              className="form-control rounded-0"
-              onChange={(e) => setPassword(e.target.value)}          
-            />
-          </div>
-          <button type="submit" className="btn btn-success w-100 rounded-0">
-            Register
-          </button>
-          <button className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none">
-            Login
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-}
+const app = express();
 
-export default App;
+// Use specific origin instead of "*"
+app.use(cors({
+  origin: "https://phase3-mockup-frontend.vercel.app",
+  methods: ["POST", "GET"],
+  credentials: true
+}));
+
+app.use(express.json());
+
+mongoose.connect('mongodb+srv://vincent:123@employee.yvqm0ok.mongodb.net/test?retryWrites=true&w=majority');
+
+app.get("/", (req, res) => {
+  res.json("Successful");
+});
+
+app.post('/register', (req, res) => {
+  const { name, email, password } = req.body;
+
+  RegisterModel.findOne({ email: email })
+    .then(user => {
+      if (user) {
+        // Use 400 status for client errors
+        res.status(400).json("Already have an account");
+      } else {
+        RegisterModel.create({ name: name, email: email, password: password })
+          .then(result => res.status(201).json(result))
+          .catch(err => res.status(500).json(err));
+      }
+    })
+    .catch(err => res.status(500).json(err));
+});
+
+// Debug
+app.use((req, res, next) => {
+  console.log(`Incoming request to: ${req.url}`);
+  next();
+});
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
