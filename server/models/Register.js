@@ -1,10 +1,21 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const RegisterSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String
-})
+const registerSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true // Ensure that each email is unique
+  },
+  password: {
+    type: String,
+    required: true
+  }
+});
 
-const RegisterModel = mongoose.model("register", RegisterSchema);
+const RegisterModel = mongoose.model('Register', registerSchema);
+
 module.exports = RegisterModel;
