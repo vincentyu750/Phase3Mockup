@@ -5,6 +5,7 @@ const RegisterModel = require('./models/Register');
 
 const app = express();
 
+// Use specific origin instead of "*"
 app.use(cors({
   origin: "https://phase3-mockup-frontend.vercel.app",
   methods: ["POST", "GET"],
