@@ -12,7 +12,7 @@ app.use(cors({
 
 app.use(express.json())
 
-mongoose.connect('mongodb+srv://vincent:123@employee.yvqm0ok.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://vincent:123@employee.yvqm0ok.mongodb.net/test?retryWrites=true&w=majority');
 
 
 app.get("/", (req, res) => {
