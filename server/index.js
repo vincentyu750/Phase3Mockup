@@ -5,7 +5,7 @@ const RegisterModel = require('./models/Register')
 
 const app = express()
 app.use(cors({
-    origin: "https://phase3-mockup-frontend-git-main-vincents-projects-ba37b3a9.vercel.app",
+    origin: "https://phase3-mockup-frontend-pt8g1d20p-vincents-projects-ba37b3a9.vercel.app",
     methods: ["POST", "GET"],
     credentials: true
   }));
@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 app.post('/register', (req, res) => {
     const {name, email, password} = req.body;
 
-    res.header('Access-Control-Allow-Origin', 'https://phase3-mockup-frontend-git-main-vincents-projects-ba37b3a9.vercel.app');
+    res.header('Access-Control-Allow-Origin', 'https://phase3-mockup-frontend-pt8g1d20p-vincents-projects-ba37b3a9.vercel.app');
     res.header('Access-Control-Allow-Methods', 'POST, GET');
     res.header('Access-Control-Allow-Credentials', 'true');
 

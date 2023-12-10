@@ -10,7 +10,7 @@ function App() {
 axios.defaults.withCredentials = true;
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://phase3-mockup-server-git-main-vincents-projects-ba37b3a9.vercel.app', {name, email, password})
+    axios.post('https://phase3-mockup-server-b9g6alyv5-vincents-projects-ba37b3a9.vercel.app', {name, email, password})
     .then(result => console.log(result))
     .catch(err => console.log(err))
   }
